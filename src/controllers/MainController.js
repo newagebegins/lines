@@ -1,4 +1,4 @@
-function main() {
+Lines.MainController = function() {
   var gameField = new Lines.GameField();
   var gameFieldView = new Lines.GameFieldView(gameField);
   var canvas = document.createElement("canvas");
@@ -7,4 +7,4 @@ function main() {
   canvas.height = gameField.getRowsCount() * gameFieldView.getCellHeightPx();
   document.body.appendChild(canvas);
   gameFieldView.draw(ctx);
-}
+};
