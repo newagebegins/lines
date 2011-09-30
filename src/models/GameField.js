@@ -1,14 +1,14 @@
-Lines.GameField = function() {
+Lines.GameField = function(rowsCount, columnsCount) {
   /** @private */
-  this.rowsCount = 10;
+  this.rowsCount = rowsCount;
   /** @private */
-  this.columnsCount = 10;
+  this.columnsCount = columnsCount;
   /** @private */
   this.cells = this.createEmptyCells();
 };
 
-Lines.GameField.create = function() {
-  return new Lines.GameField();
+Lines.GameField.create = function(rowsCount, columnsCount) {
+  return new Lines.GameField(rowsCount, columnsCount);
 };
 
 /** @private */

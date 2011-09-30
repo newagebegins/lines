@@ -1,12 +1,15 @@
 describe("GameField", function() {
+  var gameField;
+  
+  beforeEach(function() {
+    gameField = Lines.GameField.create(10, 10);
+  });
+  
   it("should have no balls after creation", function() {
-    var gameField = Lines.GameField.create();
-    
     expect(gameField.getBallsCount()).toEqual(0);
   });
   
   it("allows to place balls", function() {
-    var gameField = Lines.GameField.create();
     var ball = Lines.Ball.create();
     var row = 1;
     var column = 2;
@@ -17,7 +20,6 @@ describe("GameField", function() {
   });
   
   it("should not allow to place ball to occupied cell", function() {
-    var gameField = Lines.GameField.create();
     var ballOne = Lines.Ball.create();
     var ballTwo = Lines.Ball.create();
     var row = 1;

@@ -1,5 +1,5 @@
 Lines.MainController = function() {
-  var gameField = Lines.GameField.create();
+  var gameField = Lines.GameField.create(10, 10);
 //  var ballsGenerator = Lines.BallsGenerator.create(gameField);
 //  ballsGenerator.addNewBallsToGameField();
   var gameFieldView = Lines.GameFieldView.create(gameField);
