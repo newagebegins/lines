@@ -28,4 +28,10 @@ describe("GameField", function() {
     
     expect(function() {gameField.placeBallAt(ballTwo, row, column);}).toThrow('Trying to place ball to occupied cell.');
   });
+  
+  it("should indicate if it is full", function() {
+    expect(gameField.isFull()).toBeFalsy();
+    fillGameField(gameField);
+    expect(gameField.isFull()).toBeTruthy();
+  });
 });

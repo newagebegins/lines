@@ -48,6 +48,11 @@ Lines.GameField.prototype.getBallsCount = function() {
   return ballsCount;
 };
 
+Lines.GameField.prototype.isFull = function() {
+  var maximumBallsCount = this.getRowsCount() * this.getColumnsCount();
+  return this.getBallsCount() == maximumBallsCount;
+};
+
 Lines.GameField.prototype.placeBallAt = function(ball, row, column) {
   if (this.cells[row][column] != null) {
     throw new Error('Trying to place ball to occupied cell.');
