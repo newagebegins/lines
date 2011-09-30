@@ -1,6 +1,6 @@
 Lines.MainController = function() {
-  var gameField = new Lines.GameField();
-  var gameFieldView = new Lines.GameFieldView(gameField);
+  var gameField = Lines.GameField.create();
+  var gameFieldView = Lines.GameFieldView.create(gameField);
   var canvas = document.createElement("canvas");
   var ctx = canvas.getContext("2d");
   canvas.width = gameField.getColumnsCount() * gameFieldView.getCellWidthPx();

@@ -5,7 +5,11 @@ Lines.GameFieldView = function(gameField) {
   this.cellWidthPx = 50;
   /** @private */
   this.cellHeightPx = 50;
-}
+};
+
+Lines.GameFieldView.create = function(gameField) {
+  return new Lines.GameFieldView(gameField);
+};
 
 Lines.GameFieldView.prototype.getCellWidthPx = function() {
   return this.cellWidthPx;
