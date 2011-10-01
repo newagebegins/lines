@@ -25,7 +25,7 @@ Lines.BallsGenerator.prototype.addNewBallsToGameField = function(numberOfBallsTo
         continue;
       }
       
-      this.gameField.placeBallAt(Lines.Ball.create(), row, column);
+      this.gameField.placeBallAt(Lines.Ball.create('red'), row, column);
       break;
     }
     

@@ -10,7 +10,7 @@ describe("GameField", function() {
   });
   
   it("allows to place balls", function() {
-    var placedBall = Lines.Ball.create();
+    var placedBall = Lines.Ball.create('red');
     var row = 1;
     var column = 2;
     gameField.placeBallAt(placedBall, row, column);
@@ -24,8 +24,8 @@ describe("GameField", function() {
   });
   
   it("should not allow to place ball to occupied cell", function() {
-    var ballOne = Lines.Ball.create();
-    var ballTwo = Lines.Ball.create();
+    var ballOne = Lines.Ball.create('red');
+    var ballTwo = Lines.Ball.create('red');
     var row = 1;
     var column = 2;
     gameField.placeBallAt(ballOne, row, column);

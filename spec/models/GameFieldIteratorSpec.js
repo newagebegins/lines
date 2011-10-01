@@ -8,13 +8,13 @@ describe("GameFieldIterator", function() {
   it("should perform iteration", function() {
     var gameField = Lines.GameField.create(10, 10);
     
-    var ballOne = Lines.Ball.create();
+    var ballOne = Lines.Ball.create('red');
     gameField.placeBallAt(ballOne, 1, 1);
     
-    var ballTwo = Lines.Ball.create();
+    var ballTwo = Lines.Ball.create('red');
     gameField.placeBallAt(ballTwo, 2, 2);
     
-    var ballThree = Lines.Ball.create();
+    var ballThree = Lines.Ball.create('red');
     gameField.placeBallAt(ballThree, 3, 3);
     
     var gameFieldIterator = Lines.GameFieldIterator.create(gameField);
