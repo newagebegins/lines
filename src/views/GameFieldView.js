@@ -20,8 +20,32 @@ Lines.GameFieldView.prototype.getCellHeightPx = function() {
 };
 
 Lines.GameFieldView.prototype.draw = function(ctx) {
+  this.drawLines(ctx);
+  this.drawBalls(ctx);
+};
+
+/** @private */
+Lines.GameFieldView.prototype.drawLines = function(ctx) {
   this.drawHorizontalLines(ctx);
   this.drawVerticalLines(ctx);
+};
+
+/** @private */
+Lines.GameFieldView.prototype.drawBalls = function(ctx) {
+  var gameFieldIterator = Lines.GameFieldIterator.create(this.gameField);
+  
+  while (!gameFieldIterator.iterationCompleted()) {
+    var ball = gameFieldIterator.getNextBall();
+    this.drawBall(ball, ctx);
+  }
+};
+
+/** @private */
+Lines.GameFieldView.prototype.drawBall = function(ball, ctx) {
+  var ballView = Lines.BallView.create(ball);
+  var xCenterPx = this.getCellWidthPx() * (ball.getColumn() + 0.5);
+  var yCenterPx = this.getCellHeightPx() * (ball.getRow() + 0.5);
+  ballView.draw(ctx, xCenterPx, yCenterPx);
 };
 
 /** @private */

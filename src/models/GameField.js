@@ -57,6 +57,8 @@ Lines.GameField.prototype.placeBallAt = function(ball, row, column) {
   if (this.cells[row][column] != null) {
     throw new Error('Trying to place ball to occupied cell.');
   }
+  ball.setRow(row);
+  ball.setColumn(column);
   this.cells[row][column] = ball;
 };
 
