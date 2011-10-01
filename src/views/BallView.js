@@ -13,7 +13,7 @@ Lines.BallView.prototype.draw = function(ctx, xCenterPx, yCenterPx, radius) {
   
   ctx.beginPath();
   ctx.arc(xCenterPx, yCenterPx, radius, 0, 2 * Math.PI, false);
-  ctx.fillStyle = "#8ED6FF";
+  ctx.fillStyle = this.ball.getColor();
   ctx.fill();
   ctx.lineWidth = 5;
   ctx.strokeStyle = "black";

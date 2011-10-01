@@ -32,3 +32,7 @@ Lines.Ball.prototype.getColumn = function() {
 Lines.Ball.prototype.setColumn = function(column) {
   this.column = column;
 };
+
+Lines.Ball.prototype.getColor = function() {
+  return this.color;
+};

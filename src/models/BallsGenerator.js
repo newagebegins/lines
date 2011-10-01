@@ -25,7 +25,9 @@ Lines.BallsGenerator.prototype.addNewBallsToGameField = function(numberOfBallsTo
         continue;
       }
       
-      this.gameField.placeBallAt(Lines.Ball.create('red'), row, column);
+      var colorIndex = Lines.RandomNumberGenerator.generateIntegerBetweenMinAndMaxInclusively(0, Lines.Ball.COLORS.length - 1);
+      var color = Lines.Ball.COLORS[colorIndex];
+      this.gameField.placeBallAt(Lines.Ball.create(color), row, column);
       break;
     }
     
