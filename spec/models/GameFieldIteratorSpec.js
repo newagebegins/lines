@@ -1,12 +1,12 @@
 describe("GameFieldIterator", function() {
   it("should raise an exception when trying to get next ball of the empty game field", function() {
-    var gameField = Lines.GameField.create(10, 10);
+    var gameField = Lines.GameField.create();
     var gameFieldIterator = Lines.GameFieldIterator.create(gameField);
     expect(function() {gameFieldIterator.getNextBall();}).toThrow('Trying to get next ball after iteration is completed.');
   });
   
   it("should perform iteration", function() {
-    var gameField = Lines.GameField.create(10, 10);
+    var gameField = Lines.GameField.create();
     
     var ballOne = Lines.Ball.create('red');
     gameField.placeBallAt(ballOne, 1, 1);

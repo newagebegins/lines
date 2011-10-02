@@ -18,8 +18,8 @@ Lines.BallsGenerator.prototype.addNewBallsToGameField = function(numberOfBallsTo
     
     while (placeAttempts < placeAttemptsLimit) {
       placeAttempts++;
-      var row = Lines.RandomNumberGenerator.generateIntegerBetweenMinAndMaxInclusively(0, this.gameField.getRowsCount() - 1);
-      var column = Lines.RandomNumberGenerator.generateIntegerBetweenMinAndMaxInclusively(0, this.gameField.getColumnsCount() - 1);
+      var row = Lines.RandomNumberGenerator.generateIntegerBetweenMinAndMaxInclusively(0, Lines.GameField.ROWS_COUNT - 1);
+      var column = Lines.RandomNumberGenerator.generateIntegerBetweenMinAndMaxInclusively(0, Lines.GameField.COLUMNS_COUNT - 1);
       
       if (this.gameField.getBallAt(row, column) != null) {
         continue;

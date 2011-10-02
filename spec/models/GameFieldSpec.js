@@ -2,7 +2,7 @@ describe("GameField", function() {
   var gameField;
   
   beforeEach(function() {
-    gameField = Lines.GameField.create(10, 10);
+    gameField = Lines.GameField.create();
   });
   
   it("should have no balls after creation", function() {

@@ -18,12 +18,12 @@ Lines.GameFieldIterator.prototype.getNextBall = function() {
     throw new Error('Trying to get next ball after iteration is completed.');
   }
   
-  while (this.currentRow < this.gameField.getRowsCount()) {
-    while (this.currentColumn < this.gameField.getColumnsCount()) {
+  while (this.currentRow < Lines.GameField.ROWS_COUNT) {
+    while (this.currentColumn < Lines.GameField.COLUMNS_COUNT) {
       var ball = this.gameField.getBallAt(this.currentRow, this.currentColumn);
       this.currentColumn++;
       
-      if (this.currentColumn >= this.gameField.getColumnsCount()) {
+      if (this.currentColumn >= Lines.GameField.COLUMNS_COUNT) {
         this.currentColumn = 0;
         this.currentRow++;
       }

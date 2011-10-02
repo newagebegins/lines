@@ -1,6 +1,6 @@
 describe("BallsGenerator", function() {
   it("should add new balls to game field", function() {
-    var gameField = Lines.GameField.create(10, 10);
+    var gameField = Lines.GameField.create();
     var ballsGenerator = Lines.BallsGenerator.create(gameField);
     var numberOfBallsToCreate = 3;
     ballsGenerator.addNewBallsToGameField(numberOfBallsToCreate);
@@ -10,7 +10,7 @@ describe("BallsGenerator", function() {
   it("should not try to place a ball to an occupied cell", function() {
     var functionBackup = Lines.RandomNumberGenerator.generateIntegerBetweenMinAndMaxInclusively;
     
-    var gameField = Lines.GameField.create(10, 10);
+    var gameField = Lines.GameField.create();
     var ballsGenerator = Lines.BallsGenerator.create(gameField);
     
     var randomNumberGeneratorCallsCount = 0;
@@ -37,7 +37,7 @@ describe("BallsGenerator", function() {
   });
   
   it("should not try to add balls to fully occupied game field", function() {
-    var gameField = Lines.GameField.create(10, 10);
+    var gameField = Lines.GameField.create();
     fillGameField(gameField);
     var ballsGenerator = Lines.BallsGenerator.create(gameField);
     var numberOfBallsToCreate = 3;

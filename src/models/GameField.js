@@ -1,23 +1,22 @@
-Lines.GameField = function(rowsCount, columnsCount) {
-  /** @private */
-  this.rowsCount = rowsCount;
-  /** @private */
-  this.columnsCount = columnsCount;
+Lines.GameField = function() {
   /** @private */
   this.cells = this.createEmptyCells();
 };
 
-Lines.GameField.create = function(rowsCount, columnsCount) {
-  return new Lines.GameField(rowsCount, columnsCount);
+Lines.GameField.create = function() {
+  return new Lines.GameField();
 };
+
+Lines.GameField.COLUMNS_COUNT = 10;
+Lines.GameField.ROWS_COUNT = 10;
 
 /** @private */
 Lines.GameField.prototype.createEmptyCells = function() {
   var cellsRows = [];
   
-  for (var currentRow = 0; currentRow < this.getRowsCount(); currentRow++) {
+  for (var currentRow = 0; currentRow < Lines.GameField.ROWS_COUNT; currentRow++) {
     var cellsRowColumns = [];
-    for (var currentColumn = 0; currentColumn < this.getColumnsCount(); currentColumn++) {
+    for (var currentColumn = 0; currentColumn < Lines.GameField.COLUMNS_COUNT; currentColumn++) {
       cellsRowColumns.push(null);
     }
     cellsRows.push(cellsRowColumns);
@@ -26,19 +25,11 @@ Lines.GameField.prototype.createEmptyCells = function() {
   return cellsRows;
 };
 
-Lines.GameField.prototype.getRowsCount = function() {
-  return this.rowsCount;
-};
-
-Lines.GameField.prototype.getColumnsCount = function() {
-  return this.columnsCount;
-};
-
 Lines.GameField.prototype.getBallsCount = function() {
   var ballsCount = 0;
   
-  for (var currentRow = 0; currentRow < this.getRowsCount(); currentRow++) {
-    for (var currentColumn = 0; currentColumn < this.getColumnsCount(); currentColumn++) {
+  for (var currentRow = 0; currentRow < Lines.GameField.ROWS_COUNT; currentRow++) {
+    for (var currentColumn = 0; currentColumn < Lines.GameField.COLUMNS_COUNT; currentColumn++) {
       if (this.cells[currentRow][currentColumn] != null) {
         ballsCount++;
       }
@@ -49,7 +40,7 @@ Lines.GameField.prototype.getBallsCount = function() {
 };
 
 Lines.GameField.prototype.isFull = function() {
-  var maximumBallsCount = this.getRowsCount() * this.getColumnsCount();
+  var maximumBallsCount = Lines.GameField.ROWS_COUNT * Lines.GameField.COLUMNS_COUNT;
   return this.getBallsCount() == maximumBallsCount;
 };
 

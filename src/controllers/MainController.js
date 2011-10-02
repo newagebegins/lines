@@ -1,14 +1,6 @@
 Lines.MainController = function() {
-  var gameField = Lines.GameField.create(10, 10);
-  var ballsGenerator = Lines.BallsGenerator.create(gameField);
-  ballsGenerator.addNewBallsToGameField(3);
-  var gameFieldView = Lines.GameFieldView.create(gameField);
-  var canvas = document.createElement("canvas");
-  var ctx = canvas.getContext("2d");
-  canvas.width = gameField.getColumnsCount() * gameFieldView.getCellWidthPx();
-  canvas.height = gameField.getRowsCount() * gameFieldView.getCellHeightPx();
-  document.body.appendChild(canvas);
-  gameFieldView.draw(ctx);
+  var gameFieldController = Lines.GameFieldController.create();
+  gameFieldController.gameStart();
 };
 
 Lines.MainController.create = function() {

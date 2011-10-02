@@ -1,61 +1,52 @@
 Lines.GameFieldView = function(gameField) {
   /** @private */
   this.gameField = gameField;
-  /** @private */
-  this.cellWidthPx = 50;
-  /** @private */
-  this.cellHeightPx = 50;
 };
 
 Lines.GameFieldView.create = function(gameField) {
   return new Lines.GameFieldView(gameField);
 };
 
-Lines.GameFieldView.prototype.getCellWidthPx = function() {
-  return this.cellWidthPx;
-};
+Lines.GameFieldView.CELL_WIDTH_PX = 50;
+Lines.GameFieldView.CELL_HEIGHT_PX = 50;
 
-Lines.GameFieldView.prototype.getCellHeightPx = function() {
-  return this.cellHeightPx;
-};
-
-Lines.GameFieldView.prototype.draw = function(ctx) {
-  this.drawLines(ctx);
-  this.drawBalls(ctx);
+Lines.GameFieldView.prototype.draw = function() {
+  this.drawLines();
+  this.drawBalls();
 };
 
 /** @private */
-Lines.GameFieldView.prototype.drawLines = function(ctx) {
-  this.drawHorizontalLines(ctx);
-  this.drawVerticalLines(ctx);
+Lines.GameFieldView.prototype.drawLines = function() {
+  this.drawHorizontalLines();
+  this.drawVerticalLines();
 };
 
 /** @private */
-Lines.GameFieldView.prototype.drawBalls = function(ctx) {
+Lines.GameFieldView.prototype.drawBalls = function() {
   var gameFieldIterator = Lines.GameFieldIterator.create(this.gameField);
   
   while (!gameFieldIterator.iterationCompleted()) {
     var ball = gameFieldIterator.getNextBall();
-    this.drawBall(ball, ctx);
+    this.drawBall(ball);
   }
 };
 
 /** @private */
-Lines.GameFieldView.prototype.drawBall = function(ball, ctx) {
+Lines.GameFieldView.prototype.drawBall = function(ball) {
   var ballView = Lines.BallView.create(ball);
-  var xCenterPx = this.getCellWidthPx() * (ball.getColumn() + 0.5);
-  var yCenterPx = this.getCellHeightPx() * (ball.getRow() + 0.5);
-  ballView.draw(ctx, xCenterPx, yCenterPx);
+  ballView.draw();
 };
 
 /** @private */
-Lines.GameFieldView.prototype.drawHorizontalLines = function(ctx) {
+Lines.GameFieldView.prototype.drawHorizontalLines = function() {
+  var ctx = Lines.Canvas.getContext();
+  
   ctx.beginPath();
   var xStart = 0;
-  var xEnd = this.gameField.getColumnsCount() * this.cellWidthPx;
+  var xEnd = Lines.GameField.COLUMNS_COUNT * Lines.GameFieldView.CELL_WIDTH_PX;
   
-  for (var currentRow = 0; currentRow <= this.gameField.getRowsCount(); currentRow++) {
-    var y = currentRow * this.cellHeightPx;
+  for (var currentRow = 0; currentRow <= Lines.GameField.ROWS_COUNT; currentRow++) {
+    var y = currentRow * Lines.GameFieldView.CELL_HEIGHT_PX;
     ctx.moveTo(xStart, y);
     ctx.lineTo(xEnd, y);
   }
@@ -65,13 +56,15 @@ Lines.GameFieldView.prototype.drawHorizontalLines = function(ctx) {
 };
 
 /** @private */
-Lines.GameFieldView.prototype.drawVerticalLines = function(ctx) {
+Lines.GameFieldView.prototype.drawVerticalLines = function() {
+  var ctx = Lines.Canvas.getContext();
+  
   ctx.beginPath();
   var yStart = 0;
-  var yEnd = this.gameField.getRowsCount() * this.cellHeightPx;
+  var yEnd = Lines.GameField.ROWS_COUNT * Lines.GameFieldView.CELL_HEIGHT_PX;
   
-  for (var currentColumn = 0; currentColumn <= this.gameField.getColumnsCount(); currentColumn++) {
-    var x = currentColumn * this.cellWidthPx;
+  for (var currentColumn = 0; currentColumn <= Lines.GameField.COLUMNS_COUNT; currentColumn++) {
+    var x = currentColumn * Lines.GameFieldView.CELL_WIDTH_PX;
     ctx.moveTo(x, yStart);
     ctx.lineTo(x, yEnd);
   }
