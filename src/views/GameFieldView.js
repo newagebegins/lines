@@ -1,6 +1,8 @@
 Lines.GameFieldView = function(gameField) {
   /** @private */
   this.gameField = gameField;
+  /** @private */
+  this.redrawing = false;
 };
 
 Lines.GameFieldView.create = function(gameField) {
@@ -34,7 +36,13 @@ Lines.GameFieldView.prototype.drawBalls = function() {
 /** @private */
 Lines.GameFieldView.prototype.drawBall = function(ball) {
   var ballView = Lines.BallView.create(ball);
-  ballView.draw();
+  
+  if (this.redrawing) {
+    ballView.draw(Lines.BallView.NORMAL_RADIUS);
+  }
+  else {
+    ballView.draw();
+  }  
 };
 
 /** @private */
@@ -71,4 +79,10 @@ Lines.GameFieldView.prototype.drawVerticalLines = function() {
   
   ctx.closePath();
   ctx.stroke();
+};
+
+Lines.GameFieldView.prototype.redraw = function() {
+  Lines.Canvas.clear();
+  this.redrawing = true;
+  this.draw();
 };

@@ -1,8 +1,6 @@
 Lines.BallView = function(ball) {
   /** @private */
   this.ball = ball;
-  /** @private */
-  this.selected = false;
 };
 
 Lines.BallView.views = [];
@@ -13,9 +11,10 @@ Lines.BallView.create = function(ball) {
   return view;
 };
 
+Lines.BallView.NORMAL_RADIUS = 20;
+
 Lines.BallView.prototype.draw = function(radius) {
   radius = radius || 1;
-  var maxRadius = 20;
   var ctx = Lines.Canvas.getContext();
   var xCenterPx = Lines.GameFieldView.CELL_WIDTH_PX * (this.ball.getColumn() + 0.5);
   var yCenterPx = Lines.GameFieldView.CELL_HEIGHT_PX * (this.ball.getRow() + 0.5);
@@ -31,21 +30,14 @@ Lines.BallView.prototype.draw = function(radius) {
   radius++;
   var _this = this;
   
-  if (radius <= maxRadius) {
+  if (radius <= Lines.BallView.NORMAL_RADIUS) {
     setTimeout(function() {_this.draw(radius)}, 5);
   }
 };
 
-Lines.BallView.prototype.beginSelectAnimation = function() {
-  this.selected = true;
-  this.selectAnimation();
-};
-
 Lines.BallView.prototype.selectAnimation = function(step) {
-  var maxRadius = 20;
-  
-  if (this.selected == false) {
-    this.draw(maxRadius);
+  if (!this.ball.isSelected()) {
+    this.draw(Lines.BallView.NORMAL_RADIUS);
     return;
   }
   
@@ -58,24 +50,19 @@ Lines.BallView.prototype.selectAnimation = function(step) {
       setTimeout(function() {_this.selectAnimation(2)}, 300);
       break;
     case 2:
-      this.draw(maxRadius);
+      this.draw(Lines.BallView.NORMAL_RADIUS);
       setTimeout(function() {_this.selectAnimation(1)}, 300);
       break;
   }
 };
 
 Lines.BallView.prototype.erase = function() {
-  var maxRadius = 20;
   var ctx = Lines.Canvas.getContext();
   var xCenterPx = Lines.GameFieldView.CELL_WIDTH_PX * (this.ball.getColumn() + 0.5);
   var yCenterPx = Lines.GameFieldView.CELL_HEIGHT_PX * (this.ball.getRow() + 0.5);
   
   ctx.beginPath();
-  ctx.arc(xCenterPx, yCenterPx, maxRadius + 4, 0, 2 * Math.PI, false);
+  ctx.arc(xCenterPx, yCenterPx, Lines.BallView.NORMAL_RADIUS + 4, 0, 2 * Math.PI, false);
   ctx.fillStyle = "white";
   ctx.fill();
-};
-
-Lines.BallView.prototype.stopSelectAnimation = function() {
-  this.selected = false;
 };

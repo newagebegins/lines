@@ -25,8 +25,18 @@ Lines.GameFieldController.prototype.click = function(event) {
   var ball = this.gameField.getBallAt(clickedCellRow, clickedCellColumn);
     
   if (ball != null) {
+    ball.select();
     var ballController = Lines.BallController.create(ball);
     ballController.click();
+    return;
+  }
+  
+  var selectedBall = Lines.Ball.getSelectedBall();
+
+  if (selectedBall != null) {
+    selectedBall.moveTo(clickedCellRow, clickedCellColumn);
+    selectedBall.unselect();
+    this.gameFieldView.redraw();
   }
 };
 

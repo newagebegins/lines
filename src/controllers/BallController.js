@@ -10,8 +10,5 @@ Lines.BallController.create = function(ball) {
 };
 
 Lines.BallController.prototype.click = function() {
-  for (var i = 0; i < Lines.BallView.views.length; i++) {
-    Lines.BallView.views[i].stopSelectAnimation();
-  }
-  this.ballView.beginSelectAnimation();
+  this.ballView.selectAnimation();
 };

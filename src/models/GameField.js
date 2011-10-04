@@ -50,9 +50,14 @@ Lines.GameField.prototype.placeBallAt = function(ball, row, column) {
   }
   ball.setRow(row);
   ball.setColumn(column);
+  ball.setGameField(this);
   this.cells[row][column] = ball;
 };
 
 Lines.GameField.prototype.getBallAt = function(row, column) {
   return this.cells[row][column];
+};
+
+Lines.GameField.prototype.removeBallAt = function(row, column) {
+  this.cells[row][column] = null;
 };
