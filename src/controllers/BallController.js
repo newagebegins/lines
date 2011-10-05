@@ -23,19 +23,23 @@ Lines.BallController.prototype.moveTo = function(goalRow, goalColumn) {
     return;
   }
   
-  this.ballView.registerObserver(this, 'moving animation completed');
-  
   var path = this.ball.getPathTo(goalRow, goalColumn);
-  this.ballView.movingAnimation(path);
+  this.movingAnimation(path);
 };
 
-Lines.BallController.prototype.notify = function(event) {
-  switch (event) {
-    case 'moving animation completed':
-      this.notifyObservers('moving animation completed');
-      break;
-    default:
-      throw new Error('unhandled event');
-      break;
+Lines.BallController.prototype.movingAnimation = function(path, currentCell) {
+  if (currentCell >= path.length) {
+    this.notifyObservers('moving animation completed');
+    return;
   }
+  
+  currentCell = (currentCell == undefined) ? 1 : currentCell;
+  var currentCellRow = path[currentCell][1];
+  var currentCellColumn = path[currentCell][0];
+  var durationBetweenStepsMs = 50;
+  this.ballView.erase();
+  this.ball.moveTo(currentCellRow, currentCellColumn);
+  this.ballView.draw(Lines.BallView.NORMAL_RADIUS);
+  var _this = this;
+  setTimeout(function() {_this.movingAnimation(path, currentCell + 1)}, durationBetweenStepsMs);
 };

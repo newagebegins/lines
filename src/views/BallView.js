@@ -1,12 +1,7 @@
 Lines.BallView = function(ball) {
-  Lines.Observable.call(this);
-  /** @private */
-  this.handledEvents = ['moving animation completed'];
   /** @private */
   this.ball = ball;
 };
-
-Lines.BallView.prototype = new Lines.Observable();
 
 Lines.BallView.views = [];
 
@@ -79,21 +74,4 @@ Lines.BallView.prototype.erase = function() {
   ctx.arc(xCenterPx, yCenterPx, Lines.BallView.NORMAL_RADIUS + 4, 0, 2 * Math.PI, false);
   ctx.fillStyle = "white";
   ctx.fill();
-};
-
-Lines.BallView.prototype.movingAnimation = function(path, currentCell) {
-  if (currentCell >= path.length) {
-    this.notifyObservers('moving animation completed');
-    return;
-  }
-  
-  currentCell = (currentCell == undefined) ? 1 : currentCell;
-  var currentCellRow = path[currentCell][1];
-  var currentCellColumn = path[currentCell][0];
-  var durationBetweenStepsMs = 50;
-  this.erase();
-  this.ball.moveTo(currentCellRow, currentCellColumn);
-  this.draw(Lines.BallView.NORMAL_RADIUS);
-  var _this = this;
-  setTimeout(function() {_this.movingAnimation(path, currentCell + 1)}, durationBetweenStepsMs);
 };
