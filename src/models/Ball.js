@@ -94,3 +94,41 @@ Lines.Ball.prototype.setAppearing = function(appearing) {
 Lines.Ball.prototype.isAppearing = function() {
   return this.appearing;
 };
+
+Lines.Ball.prototype.getNeighbour = function(direction) {
+  switch (direction) {
+    case 'e':
+      if (this.column == Lines.GameField.COLUMNS_COUNT - 1) {
+        return null;
+      }
+      return this.gameField.getBallAt(this.row, this.column + 1);
+      break;
+      
+    case 'sw':
+      if (this.row == Lines.GameField.ROWS_COUNT - 1 ||
+          this.column == 0) {
+        return null;
+      }
+      return this.gameField.getBallAt(this.row + 1, this.column - 1);
+      break;
+      
+    case 's':
+      if (this.row == Lines.GameField.ROWS_COUNT - 1) {
+        return null;
+      }
+      return this.gameField.getBallAt(this.row + 1, this.column);
+      break;
+      
+    case 'se':
+      if (this.row == Lines.GameField.ROWS_COUNT - 1 ||
+          this.column == Lines.GameField.COLUMNS_COUNT - 1) {
+        return null;
+      }
+      return this.gameField.getBallAt(this.row + 1, this.column + 1);
+      break;
+      
+    default:
+      throw new Error("unknown direction");
+      break;
+  }
+};

@@ -65,9 +65,21 @@ Lines.GameFieldController.prototype.getClickedCellColumn = function(event) {
 Lines.GameFieldController.prototype.notify = function(event) {
    switch (event) {
     case 'moving animation completed':
-      this.addNewBalls();
-      this.gameFieldView.erase();
-      this.draw();
+      var completedLines = this.gameField.completedLines();
+      if (completedLines.length > 0) {
+        completedLines.forEach(function(completedLine) {
+          completedLine.forEach(function(cell) {
+            this.gameField.removeBallAt(cell[0], cell[1]);
+          }, this);
+        }, this);
+        this.gameFieldView.erase();
+        this.draw();
+      }
+      else {
+        this.addNewBalls();
+        this.gameFieldView.erase();
+        this.draw();
+      }
       break;
     default:
       throw new Error('unhandled event');

@@ -1,6 +1,8 @@
 Lines.GameField = function() {
   /** @private */
   this.cells = this.createEmptyCells();
+  /** @private */
+  this.completedLineLength = 4;
 };
 
 Lines.GameField.create = function() {
@@ -83,4 +85,40 @@ Lines.GameField.prototype.generateGrid = function() {
   }
   
   return grid;
+};
+
+Lines.GameField.prototype.completedLines = function() {
+  var completedLines = [];
+  var iterator = Lines.GameFieldIterator.create(this);
+  
+  while (!iterator.iterationCompleted()) {
+    var ball = iterator.getNextBall();
+    var directions = ['e', 'sw', 's', 'se'];
+    
+    directions.forEach(function(direction) {
+      var line = [];
+      line.push([ball.getRow(), ball.getColumn()]);
+      
+      this.getLine(direction, ball, line);
+
+      if (line.length >= this.completedLineLength) {
+        completedLines.push(line);
+      }
+    }, this);
+  }
+  
+  return completedLines;
+};
+
+/** @private */
+Lines.GameField.prototype.getLine = function(direction, ball, line) {
+  var neighbour = ball.getNeighbour(direction);
+  if (neighbour != null && neighbour.getColor() == ball.getColor()) {
+    line.push([neighbour.getRow(), neighbour.getColumn()]);
+    this.getLine(direction, neighbour, line);
+  }
+};
+
+Lines.GameField.prototype.setCompletedLineLength = function(length) {
+  this.completedLineLength = length;
 };

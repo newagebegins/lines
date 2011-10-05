@@ -25,22 +25,6 @@ Lines.GameFieldView.prototype.drawLines = function() {
 };
 
 /** @private */
-Lines.GameFieldView.prototype.drawBalls = function() {
-  var gameFieldIterator = Lines.GameFieldIterator.create(this.gameField);
-  
-  while (!gameFieldIterator.iterationCompleted()) {
-    var ball = gameFieldIterator.getNextBall();
-    this.drawBall(ball);
-  }
-};
-
-/** @private */
-Lines.GameFieldView.prototype.drawBall = function(ball) {
-  var ballView = Lines.BallView.create(ball);
-  ballView.draw();
-};
-
-/** @private */
 Lines.GameFieldView.prototype.drawHorizontalLines = function() {
   var ctx = Lines.Canvas.getContext();
   
