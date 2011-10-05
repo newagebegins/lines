@@ -6,3 +6,10 @@ Lines.MainController = function() {
 Lines.MainController.create = function() {
   return new Lines.MainController();
 };
+
+Lines.MainController.isGameOver = false;
+
+Lines.MainController.gameOver = function() {
+  Lines.MainController.isGameOver = true;
+  alert("Game Over");
+};

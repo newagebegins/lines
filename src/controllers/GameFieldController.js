@@ -25,11 +25,16 @@ Lines.GameFieldController.prototype.draw = function() {
   while (!gameFieldIterator.iterationCompleted()) {
     var ball = gameFieldIterator.getNextBall();
     var ballController = Lines.BallController.create(ball);
+    ballController.registerObserver(this, 'ball appeared');
     ballController.draw();
   }
 };
 
 Lines.GameFieldController.prototype.click = function(event) {
+  if (Lines.MainController.isGameOver) {
+    return;
+  }
+  
   var clickedCellRow = this.getClickedCellRow(event);
   var clickedCellColumn = this.getClickedCellColumn(event);
   var ball = this.gameField.getBallAt(clickedCellRow, clickedCellColumn);
@@ -77,6 +82,16 @@ Lines.GameFieldController.prototype.notify = function(event) {
         this.draw();
       }
       break;
+      
+    case 'ball appeared':
+      if (!this.gameField.allBallsAppeared()) {
+        break;
+      }
+      if (this.gameField.isFull()) {
+        Lines.MainController.gameOver();
+      }
+      break;
+      
     default:
       throw new Error('unhandled event');
       break;

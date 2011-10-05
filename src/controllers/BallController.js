@@ -1,7 +1,10 @@
 Lines.BallController = function(ball) {
   Lines.Observable.call(this);
   /** @private */
-  this.handledEvents = ['moving animation completed'];
+  this.handledEvents = [
+    'moving animation completed',
+    'ball appeared'
+  ];
   /** @private */
   this.ball = ball;
   /** @privete */
@@ -31,6 +34,7 @@ Lines.BallController.prototype.draw = function(radius) {
   }
   else {
     this.ball.setAppearing(false);
+    this.notifyObservers('ball appeared');
   }
 };
 

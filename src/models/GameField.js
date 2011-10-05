@@ -2,7 +2,7 @@ Lines.GameField = function() {
   /** @private */
   this.cells = this.createEmptyCells();
   /** @private */
-  this.completedLineLength = 4;
+  this.completedLineLength = 5;
 };
 
 Lines.GameField.create = function() {
@@ -41,9 +41,12 @@ Lines.GameField.prototype.getBallsCount = function() {
   return ballsCount;
 };
 
+Lines.GameField.prototype.getMaximumBallsCount = function() {
+  return Lines.GameField.ROWS_COUNT * Lines.GameField.COLUMNS_COUNT;
+};
+
 Lines.GameField.prototype.isFull = function() {
-  var maximumBallsCount = Lines.GameField.ROWS_COUNT * Lines.GameField.COLUMNS_COUNT;
-  return this.getBallsCount() == maximumBallsCount;
+  return this.getBallsCount() == this.getMaximumBallsCount();
 };
 
 Lines.GameField.prototype.placeBallAt = function(ball, row, column) {
@@ -121,4 +124,17 @@ Lines.GameField.prototype.getLine = function(direction, ball, line) {
 
 Lines.GameField.prototype.setCompletedLineLength = function(length) {
   this.completedLineLength = length;
+};
+
+Lines.GameField.prototype.allBallsAppeared = function() {
+  var iterator = Lines.GameFieldIterator.create(this);
+  
+  while (!iterator.iterationCompleted()) {
+    var ball = iterator.getNextBall();
+    if (ball.isAppearing()) {
+      return false;
+    }
+  }
+  
+  return true;
 };
