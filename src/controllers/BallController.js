@@ -15,7 +15,28 @@ Lines.BallController.create = function(ball) {
 };
 
 Lines.BallController.prototype.click = function() {
-  this.ballView.selectAnimation();
+  this.selectAnimation();
+};
+
+Lines.BallController.prototype.selectAnimation = function(step) {
+  if (!this.ball.isSelected()) {
+    this.ballView.draw();
+    return;
+  }
+  
+  step = step || 1;
+  var _this = this;
+  
+  switch (step) {
+    case 1:
+      this.ballView.erase();
+      setTimeout(function() {_this.selectAnimation(2)}, 300);
+      break;
+    case 2:
+      this.ballView.draw();
+      setTimeout(function() {_this.selectAnimation(1)}, 300);
+      break;
+  }
 };
 
 Lines.BallController.prototype.moveTo = function(goalRow, goalColumn) {

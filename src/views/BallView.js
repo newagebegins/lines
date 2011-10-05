@@ -44,27 +44,6 @@ Lines.BallView.prototype.draw = function(radius) {
   }
 };
 
-Lines.BallView.prototype.selectAnimation = function(step) {
-  if (!this.ball.isSelected()) {
-    this.draw(Lines.BallView.NORMAL_RADIUS);
-    return;
-  }
-  
-  step = step || 1;
-  var _this = this;
-  
-  switch (step) {
-    case 1:
-      this.erase();
-      setTimeout(function() {_this.selectAnimation(2)}, 300);
-      break;
-    case 2:
-      this.draw(Lines.BallView.NORMAL_RADIUS);
-      setTimeout(function() {_this.selectAnimation(1)}, 300);
-      break;
-  }
-};
-
 Lines.BallView.prototype.erase = function() {
   var ctx = Lines.Canvas.getContext();
   var xCenterPx = Lines.GameFieldView.CELL_WIDTH_PX * (this.ball.getColumn() + 0.5);
