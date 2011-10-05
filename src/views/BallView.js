@@ -3,24 +3,15 @@ Lines.BallView = function(ball) {
   this.ball = ball;
 };
 
-Lines.BallView.views = [];
-
 Lines.BallView.create = function(ball) {
   var view = new Lines.BallView(ball);
-  Lines.BallView.views.push(view);
   return view;
 };
 
 Lines.BallView.NORMAL_RADIUS = 20;
 
 Lines.BallView.prototype.draw = function(radius) {
-  if (this.ball.isAppearing()) {
-    radius = radius || 1;
-  }
-  else {
-    radius = Lines.BallView.NORMAL_RADIUS;
-  }
-  
+  radius = radius || Lines.BallView.NORMAL_RADIUS;
   var ctx = Lines.Canvas.getContext();
   var xCenterPx = Lines.GameFieldView.CELL_WIDTH_PX * (this.ball.getColumn() + 0.5);
   var yCenterPx = Lines.GameFieldView.CELL_HEIGHT_PX * (this.ball.getRow() + 0.5);
@@ -32,16 +23,6 @@ Lines.BallView.prototype.draw = function(radius) {
   ctx.lineWidth = 5;
   ctx.strokeStyle = "black";
   ctx.stroke();
-  
-  radius++;
-  var _this = this;
-  
-  if (radius <= Lines.BallView.NORMAL_RADIUS) {
-    setTimeout(function() {_this.draw(radius)}, 5);
-  }
-  else {
-    this.ball.setAppearing(false);
-  }
 };
 
 Lines.BallView.prototype.erase = function() {

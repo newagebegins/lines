@@ -16,7 +16,6 @@ Lines.GameFieldView.CELL_HEIGHT_PX = 50;
 
 Lines.GameFieldView.prototype.draw = function() {
   this.drawLines();
-  this.drawBalls();
 };
 
 /** @private */
@@ -75,11 +74,6 @@ Lines.GameFieldView.prototype.drawVerticalLines = function() {
   
   ctx.closePath();
   ctx.stroke();
-};
-
-Lines.GameFieldView.prototype.redraw = function() {
-  this.erase();
-  this.draw();
 };
 
 Lines.GameFieldView.prototype.erase = function() {

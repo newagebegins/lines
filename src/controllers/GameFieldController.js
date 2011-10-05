@@ -14,7 +14,19 @@ Lines.GameFieldController.prototype.gameStart = function() {
   Lines.Canvas.addEventListener('click', function(event) {_this.click(event)});
   
   this.addNewBalls();
+  this.draw();
+};
+
+Lines.GameFieldController.prototype.draw = function() {
   this.gameFieldView.draw();
+  
+  var gameFieldIterator = Lines.GameFieldIterator.create(this.gameField);
+  
+  while (!gameFieldIterator.iterationCompleted()) {
+    var ball = gameFieldIterator.getNextBall();
+    var ballController = Lines.BallController.create(ball);
+    ballController.draw();
+  }
 };
 
 Lines.GameFieldController.prototype.click = function(event) {
@@ -55,7 +67,7 @@ Lines.GameFieldController.prototype.notify = function(event) {
     case 'moving animation completed':
       this.addNewBalls();
       this.gameFieldView.erase();
-      this.gameFieldView.draw();
+      this.draw();
       break;
     default:
       throw new Error('unhandled event');

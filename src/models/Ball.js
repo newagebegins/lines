@@ -11,8 +11,8 @@ Lines.Ball = function(color) {
   this.color = color;
   /** @private */
   this.gameField = undefined;
-  /** @privet */
-  this.appearing = false;
+  /** @private */
+  this.appearing = true;
 };
 
 Lines.Ball.create = function(color) {

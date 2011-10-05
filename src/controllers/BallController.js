@@ -14,6 +14,26 @@ Lines.BallController.create = function(ball) {
   return new Lines.BallController(ball);
 };
 
+Lines.BallController.prototype.draw = function(radius) {
+  if (this.ball.isAppearing()) {
+    radius = radius || 1;
+  }
+  else {
+    radius = Lines.BallView.NORMAL_RADIUS;
+  }
+  
+  this.ballView.draw(radius);
+  radius++;
+  var _this = this;
+  
+  if (radius <= Lines.BallView.NORMAL_RADIUS) {
+    setTimeout(function() {_this.draw(radius)}, 5);
+  }
+  else {
+    this.ball.setAppearing(false);
+  }
+};
+
 Lines.BallController.prototype.click = function() {
   this.selectAnimation();
 };
@@ -60,7 +80,7 @@ Lines.BallController.prototype.movingAnimation = function(path, currentCell) {
   var durationBetweenStepsMs = 50;
   this.ballView.erase();
   this.ball.moveTo(currentCellRow, currentCellColumn);
-  this.ballView.draw(Lines.BallView.NORMAL_RADIUS);
+  this.ballView.draw();
   var _this = this;
   setTimeout(function() {_this.movingAnimation(path, currentCell + 1)}, durationBetweenStepsMs);
 };
