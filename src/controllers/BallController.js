@@ -90,3 +90,19 @@ Lines.BallController.prototype.movingAnimation = function(path, currentCell) {
   var _this = this;
   setTimeout(function() {_this.movingAnimation(path, currentCell + 1)}, durationBetweenStepsMs);
 };
+
+Lines.BallController.prototype.destroyBall = function(radius, callback) {
+  radius = radius || Lines.BallView.NORMAL_RADIUS;
+  this.ballView.erase();
+  this.ballView.draw(radius);
+  radius--;
+  var _this = this;
+  
+  if (radius > 0) {
+    setTimeout(function() {_this.destroyBall(radius, callback)}, 5);
+  }
+  else {
+    this.ballView.erase();
+    callback();
+  }
+};

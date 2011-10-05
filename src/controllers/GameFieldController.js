@@ -112,7 +112,12 @@ Lines.GameFieldController.prototype.addNewBalls = function() {
 Lines.GameFieldController.prototype.removeCompletedLines = function(completedLines) {
   completedLines.forEach(function(completedLine) {
     completedLine.forEach(function(cell) {
-      this.gameField.removeBallAt(cell[0], cell[1]);
+      var ball = this.gameField.getBallAt(cell[0], cell[1]);
+      var ballController = Lines.BallController.create(ball);
+      var _this = this;
+      ballController.destroyBall(Lines.BallView.NORMAL_RADIUS, function() {
+        _this.gameField.removeBallAt(cell[0], cell[1]);
+      });
       this.scoreController.ballRemoved();
     }, this);
   }, this);
