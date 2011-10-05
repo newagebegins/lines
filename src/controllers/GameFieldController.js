@@ -1,6 +1,7 @@
 Lines.GameFieldController = function() {
   this.gameField = Lines.GameField.create();
   this.gameFieldView = Lines.GameFieldView.create(this.gameField);
+  this.scoreController = null;
 };
 
 Lines.GameFieldController.create = function() {
@@ -112,8 +113,13 @@ Lines.GameFieldController.prototype.removeCompletedLines = function(completedLin
   completedLines.forEach(function(completedLine) {
     completedLine.forEach(function(cell) {
       this.gameField.removeBallAt(cell[0], cell[1]);
+      this.scoreController.ballRemoved();
     }, this);
   }, this);
   this.gameFieldView.erase();
   this.draw();
+};
+
+Lines.GameFieldController.prototype.setScoreController = function(scoreController) {
+  this.scoreController = scoreController;
 };

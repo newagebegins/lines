@@ -1,5 +1,8 @@
 Lines.MainController = function() {
+  var scoreController = Lines.ScoreController.create();
+  
   var gameFieldController = Lines.GameFieldController.create();
+  gameFieldController.setScoreController(scoreController);
   gameFieldController.gameStart();
 };
 
