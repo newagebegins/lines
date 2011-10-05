@@ -36,9 +36,11 @@ Lines.GameFieldController.prototype.click = function(event) {
   var ballController = null;
     
   if (ball != null) {
-    ball.select();
-    ballController = Lines.BallController.create(ball);
-    ballController.click();
+    if (!ball.isSelected()) {
+      ball.select();
+      ballController = Lines.BallController.create(ball);
+      ballController.click();
+    }
     return;
   }
   
