@@ -12,3 +12,12 @@ Lines.BallController.create = function(ball) {
 Lines.BallController.prototype.click = function() {
   this.ballView.selectAnimation();
 };
+
+Lines.BallController.prototype.moveTo = function(goalRow, goalColumn) {
+  if (!this.ball.canMoveTo(goalRow, goalColumn)) {
+    return;
+  }
+  
+  var path = this.ball.getPathTo(goalRow, goalColumn);
+  this.ballView.movingAnimation(path);
+};

@@ -66,3 +66,19 @@ Lines.BallView.prototype.erase = function() {
   ctx.fillStyle = "white";
   ctx.fill();
 };
+
+Lines.BallView.prototype.movingAnimation = function(path, currentCell) {
+  if (currentCell >= path.length) {
+    return;
+  }
+  
+  currentCell = (currentCell == undefined) ? 1 : currentCell;
+  var currentCellRow = path[currentCell][1];
+  var currentCellColumn = path[currentCell][0];
+  var durationBetweenStepsMs = 50;
+  this.erase();
+  this.ball.moveTo(currentCellRow, currentCellColumn);
+  this.draw(Lines.BallView.NORMAL_RADIUS);
+  var _this = this;
+  setTimeout(function() {_this.movingAnimation(path, currentCell + 1)}, durationBetweenStepsMs);
+};

@@ -23,10 +23,11 @@ Lines.GameFieldController.prototype.click = function(event) {
   var clickedCellRow = this.getClickedCellRow(event);
   var clickedCellColumn = this.getClickedCellColumn(event);
   var ball = this.gameField.getBallAt(clickedCellRow, clickedCellColumn);
+  var ballController = null;
     
   if (ball != null) {
     ball.select();
-    var ballController = Lines.BallController.create(ball);
+    ballController = Lines.BallController.create(ball);
     ballController.click();
     return;
   }
@@ -34,9 +35,9 @@ Lines.GameFieldController.prototype.click = function(event) {
   var selectedBall = Lines.Ball.getSelectedBall();
 
   if (selectedBall != null) {
-    selectedBall.moveTo(clickedCellRow, clickedCellColumn);
+    ballController = Lines.BallController.create(selectedBall);
+    ballController.moveTo(clickedCellRow, clickedCellColumn);
     selectedBall.unselect();
-    this.gameFieldView.redraw();
   }
 };
 

@@ -58,12 +58,17 @@ Lines.Ball.prototype.moveTo = function(row, column) {
 };
 
 Lines.Ball.prototype.canMoveTo = function(goalRow, goalColumn) {
+  var path = this.getPathTo(goalRow, goalColumn);
+  var goalCanBeReached = path.length > 0;
+  return goalCanBeReached;
+};
+
+Lines.Ball.prototype.getPathTo = function(goalRow, goalColumn) {
   var start = [this.getColumn(), this.getRow()];
   var end = [goalColumn, goalRow];
   var grid = this.gameField.generateGrid();
-  var result = AStar(grid, start, end);
-  var goalCanBeReached = result.length > 0;
-  return goalCanBeReached;
+  var path = AStar(grid, start, end);
+  return path;
 };
 
 Lines.Ball.prototype.isSelected = function() {
