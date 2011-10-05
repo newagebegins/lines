@@ -69,13 +69,7 @@ Lines.GameFieldController.prototype.notify = function(event) {
     case 'moving animation completed':
       var completedLines = this.gameField.completedLines();
       if (completedLines.length > 0) {
-        completedLines.forEach(function(completedLine) {
-          completedLine.forEach(function(cell) {
-            this.gameField.removeBallAt(cell[0], cell[1]);
-          }, this);
-        }, this);
-        this.gameFieldView.erase();
-        this.draw();
+        this.removeCompletedLines(completedLines);
       }
       else {
         this.addNewBalls();
@@ -92,4 +86,19 @@ Lines.GameFieldController.prototype.notify = function(event) {
 Lines.GameFieldController.prototype.addNewBalls = function() {
   var ballsGenerator = Lines.BallsGenerator.create(this.gameField);
   ballsGenerator.addNewBallsToGameField(3);
+  
+  var completedLines = this.gameField.completedLines();
+  if (completedLines.length > 0) {
+    this.removeCompletedLines(completedLines);
+  }
+};
+
+Lines.GameFieldController.prototype.removeCompletedLines = function(completedLines) {
+  completedLines.forEach(function(completedLine) {
+    completedLine.forEach(function(cell) {
+      this.gameField.removeBallAt(cell[0], cell[1]);
+    }, this);
+  }, this);
+  this.gameFieldView.erase();
+  this.draw();
 };
