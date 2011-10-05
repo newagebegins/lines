@@ -1,7 +1,12 @@
 Lines.BallView = function(ball) {
+  Lines.Observable.call(this);
+  /** @private */
+  this.handledEvents = ['moving animation completed'];
   /** @private */
   this.ball = ball;
 };
+
+Lines.BallView.prototype = new Lines.Observable();
 
 Lines.BallView.views = [];
 
@@ -14,7 +19,13 @@ Lines.BallView.create = function(ball) {
 Lines.BallView.NORMAL_RADIUS = 20;
 
 Lines.BallView.prototype.draw = function(radius) {
-  radius = radius || 1;
+  if (this.ball.isAppearing()) {
+    radius = radius || 1;
+  }
+  else {
+    radius = Lines.BallView.NORMAL_RADIUS;
+  }
+  
   var ctx = Lines.Canvas.getContext();
   var xCenterPx = Lines.GameFieldView.CELL_WIDTH_PX * (this.ball.getColumn() + 0.5);
   var yCenterPx = Lines.GameFieldView.CELL_HEIGHT_PX * (this.ball.getRow() + 0.5);
@@ -32,6 +43,9 @@ Lines.BallView.prototype.draw = function(radius) {
   
   if (radius <= Lines.BallView.NORMAL_RADIUS) {
     setTimeout(function() {_this.draw(radius)}, 5);
+  }
+  else {
+    this.ball.setAppearing(false);
   }
 };
 
@@ -69,6 +83,7 @@ Lines.BallView.prototype.erase = function() {
 
 Lines.BallView.prototype.movingAnimation = function(path, currentCell) {
   if (currentCell >= path.length) {
+    this.notifyObservers('moving animation completed');
     return;
   }
   

@@ -11,6 +11,8 @@ Lines.Ball = function(color) {
   this.color = color;
   /** @private */
   this.gameField = undefined;
+  /** @privet */
+  this.appearing = false;
 };
 
 Lines.Ball.create = function(color) {
@@ -83,4 +85,12 @@ Lines.Ball.prototype.unselect = function() {
   if (this.isSelected()) {
     Lines.Ball.selectedBall = null;
   }  
+};
+
+Lines.Ball.prototype.setAppearing = function(appearing) {
+  this.appearing = appearing;
+};
+
+Lines.Ball.prototype.isAppearing = function() {
+  return this.appearing;
 };

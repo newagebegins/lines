@@ -13,9 +13,7 @@ Lines.GameFieldController.prototype.gameStart = function() {
   var _this = this;
   Lines.Canvas.addEventListener('click', function(event) {_this.click(event)});
   
-  var ballsGenerator = Lines.BallsGenerator.create(this.gameField);
-  ballsGenerator.addNewBallsToGameField(3);
-  
+  this.addNewBalls();
   this.gameFieldView.draw();
 };
 
@@ -36,6 +34,7 @@ Lines.GameFieldController.prototype.click = function(event) {
 
   if (selectedBall != null) {
     ballController = Lines.BallController.create(selectedBall);
+    ballController.registerObserver(this, 'moving animation completed');
     ballController.moveTo(clickedCellRow, clickedCellColumn);
     selectedBall.unselect();
   }
@@ -49,4 +48,22 @@ Lines.GameFieldController.prototype.getClickedCellRow = function(event) {
 Lines.GameFieldController.prototype.getClickedCellColumn = function(event) {
   var clickedColumn = Math.floor((event.clientX - event.target.offsetLeft) / Lines.GameFieldView.CELL_WIDTH_PX);
   return clickedColumn;
+};
+
+Lines.GameFieldController.prototype.notify = function(event) {
+   switch (event) {
+    case 'moving animation completed':
+      this.addNewBalls();
+      this.gameFieldView.erase();
+      this.gameFieldView.draw();
+      break;
+    default:
+      throw new Error('unhandled event');
+      break;
+  }
+};
+
+Lines.GameFieldController.prototype.addNewBalls = function() {
+  var ballsGenerator = Lines.BallsGenerator.create(this.gameField);
+  ballsGenerator.addNewBallsToGameField(3);
 };

@@ -51,6 +51,7 @@ Lines.GameField.prototype.placeBallAt = function(ball, row, column) {
   ball.setRow(row);
   ball.setColumn(column);
   ball.setGameField(this);
+  ball.setAppearing(true);
   this.cells[row][column] = ball;
 };
 
