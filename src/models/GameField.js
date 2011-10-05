@@ -61,3 +61,26 @@ Lines.GameField.prototype.getBallAt = function(row, column) {
 Lines.GameField.prototype.removeBallAt = function(row, column) {
   this.cells[row][column] = null;
 };
+
+Lines.GameField.prototype.generateGrid = function() {
+  var grid = [];
+  var cellWithBall = 1;
+  var emptyCell = 0;
+  
+  for (var currentRow = 0; currentRow < Lines.GameField.ROWS_COUNT; currentRow++) {
+    var gridRow = [];
+    
+    for (var currentColumn = 0; currentColumn < Lines.GameField.COLUMNS_COUNT; currentColumn++) {
+      if (this.cells[currentRow][currentColumn] != null) {
+        gridRow.push(cellWithBall);
+      }
+      else {
+        gridRow.push(emptyCell);
+      }
+    }
+    
+    grid.push(gridRow);
+  }
+  
+  return grid;
+};

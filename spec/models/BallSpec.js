@@ -59,7 +59,7 @@ describe("Ball", function() {
     expect(ballTwo.isSelected()).toBeFalsy();
   });
   
-  it("onlu one ball can be selected at the same time", function() {
+  it("only one ball can be selected at the same time", function() {
     var ballOne = Lines.Ball.create('red');
     var ballTwo = Lines.Ball.create('green');
     
@@ -77,5 +77,24 @@ describe("Ball", function() {
     
     expect(ballOne.isSelected()).toBeTruthy();
     expect(ballTwo.isSelected()).toBeFalsy();
+  });
+  
+  it("can't cross blocked path", function() {
+    // 12#
+    // 3##
+    // ###
+    var ballOne = Lines.Ball.create('red');
+    var ballTwo = Lines.Ball.create('green');
+    var ballThree = Lines.Ball.create('blue');
+    var gameField = Lines.GameField.create();
+    
+    gameField.placeBallAt(ballOne, 0, 0);
+    gameField.placeBallAt(ballTwo, 0, 1);
+    gameField.placeBallAt(ballThree, 1, 0);
+    
+    ballOne.moveTo(1, 1);
+    
+    expect(gameField.getBallAt(0, 0)).toBe(ballOne);
+    expect(gameField.getBallAt(1, 1)).toBe(null);
   });
 });

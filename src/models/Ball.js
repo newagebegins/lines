@@ -51,8 +51,19 @@ Lines.Ball.prototype.setGameField = function(gameField) {
 
 
 Lines.Ball.prototype.moveTo = function(row, column) {
-  this.gameField.removeBallAt(this.row, this.column);
-  this.gameField.placeBallAt(this, row, column);
+  if (this.canMoveTo(row, column)) {
+    this.gameField.removeBallAt(this.getRow(), this.getColumn());
+    this.gameField.placeBallAt(this, row, column);
+  }  
+};
+
+Lines.Ball.prototype.canMoveTo = function(goalRow, goalColumn) {
+  var start = [this.getColumn(), this.getRow()];
+  var end = [goalColumn, goalRow];
+  var grid = this.gameField.generateGrid();
+  var result = AStar(grid, start, end);
+  var goalCanBeReached = result.length > 0;
+  return goalCanBeReached;
 };
 
 Lines.Ball.prototype.isSelected = function() {
