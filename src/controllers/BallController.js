@@ -40,7 +40,6 @@ Lines.BallController.prototype.click = function() {
 
 Lines.BallController.prototype.selectAnimation = function(step) {
   if (!this.ball.isSelected()) {
-    this.ballView.draw();
     return;
   }
   

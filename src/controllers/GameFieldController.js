@@ -45,10 +45,10 @@ Lines.GameFieldController.prototype.click = function(event) {
   var selectedBall = Lines.Ball.getSelectedBall();
 
   if (selectedBall != null) {
+    selectedBall.unselect();
     ballController = Lines.BallController.create(selectedBall);
     ballController.registerObserver(this, 'moving animation completed');
     ballController.moveTo(clickedCellRow, clickedCellColumn);
-    selectedBall.unselect();
   }
 };
 
